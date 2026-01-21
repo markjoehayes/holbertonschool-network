@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Check if script is run with sudo/root privileges
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root or with sudo"
+    exit 1
+fi
+
+echo "Active Internet connections (only servers)"
+echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
+
+# Show TCP and UDP listening sockets
+ss -tulpn | grep LISTEN | awk '{print $0}'
+ss -tulpn | grep -v LISTEN | awk '/^udp/ {print $0}'
+
+echo ""
+echo "Active UNIX domain sockets (only servers)"
+echo "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path"
+
+# Show UNIX domain listening sockets
+ss -xlpn | grep LISTEN | awk '{print $0}'
