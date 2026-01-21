@@ -8,11 +8,10 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 echo "Active Internet connections (only servers)"
-echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
-
 # Show TCP and UDP listening sockets
-ss -tulpn | grep LISTEN | awk '{print $0}'
-ss -tulpn | grep -v LISTEN | awk '/^udp/ {print $0}'
+netstat -tulpn | head -n2
+netstat -tulpn | tail -n +3 | grep -v "127.0.0.1\|::1" | grep -E "(LISTEN|^udp)"
+
 
 echo ""
 echo "Active UNIX domain sockets (only servers)"
