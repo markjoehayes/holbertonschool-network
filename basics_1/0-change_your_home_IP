@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Simple version using only /etc/hosts file
 # Must be run with sudo/root privileges
 
