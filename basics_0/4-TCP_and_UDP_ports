@@ -13,7 +13,7 @@ netstat -lp | tail -n +3 | grep -v "127.0.0.1\|::1" | grep -E "(LISTEN|^udp)"
 
 echo ""
 echo "Active UNIX domain sockets (only servers)"
-echo "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path"
 
 # Show UNIX domain listening sockets
-#ss -xlpn | grep LISTEN | awk '{print $0}'
+netstat -xlpn | head -n2
+netstat -xlpn | tail -n +3 | grep LISTEN 
