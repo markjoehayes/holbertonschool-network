@@ -2,7 +2,6 @@
 # Display all active IPv4 IPs on the machine
 
 if command -v ifconfig &> /dev/null; then
-    echo "Using ifconfig command..."
     ifconfig | grep -E 'inet ' | awk '{print $2}'
     exit 0
 fi
