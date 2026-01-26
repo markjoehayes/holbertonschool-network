@@ -7,8 +7,8 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Show TCP and UDP listening sockets
-netstat -tulpn | head -n2
-netstat -tulpn | tail -n +3 | grep -v "127.0.0.1\|::1" | grep -E "(LISTEN|^udp)"
+netstat -lp | head -n2
+netstat -lp | tail -n +3 | grep -v "127.0.0.1\|::1" | grep -E "(LISTEN|^udp)"
 
 
 echo ""
