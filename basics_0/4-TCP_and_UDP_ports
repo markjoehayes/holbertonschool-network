@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 # Bash script to display listening ports
-
 # Check if script is run with sudo/root privileges
 if [ "$EUID" -ne 0 ]; then
     echo "Please run as root or with sudo"
     exit 1
 fi
 
-echo "Active Internet connections (only servers)"
 # Show TCP and UDP listening sockets
 netstat -tulpn | head -n2
 netstat -tulpn | tail -n +3 | grep -v "127.0.0.1\|::1" | grep -E "(LISTEN|^udp)"
