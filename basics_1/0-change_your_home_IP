@@ -1,0 +1,39 @@
+#!/bin/bash
+# Simple version using only /etc/hosts file
+# Must be run with sudo/root privileges
+
+# Check if running as root
+if [ "$EUID" -ne 0 ]; then
+    echo "This script must be run as root (use sudo)" >&2
+    exit 1
+fi
+
+# Backup the original hosts file
+cp /etc/hosts /etc/hosts.bak
+echo "Backup created: /etc/hosts.bak"
+
+# Create new hosts file with all required configurations
+cat > /etc/hosts << EOF
+127.0.0.2   localhost
+127.0.1.1   $(hostname)
+
+# Required DNS overrides
+8.8.8.8    facebook.com www.facebook.com
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+EOF
+
+echo "Configuration complete!"
+echo ""
+echo "Testing configuration:"
+echo "localhost resolves to: $(getent hosts localhost | awk '{print $1}')"
+echo "facebook.com resolves to: $(getent hosts facebook.com | awk '{print $1}')"
+echo ""
+echo "You can test with:"
+echo "  ping localhost"
+echo "  ping facebook.com"
