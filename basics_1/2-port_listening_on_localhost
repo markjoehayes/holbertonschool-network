@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+# Script to listen on port 98 on localhost
+# Must be run with root privileges for ports below 1024
+
+# Check if running as root (needed for port 98)
+if [ "$EUID" -ne 0 ]; then
+    echo "This script must be run as root (use sudo)" >&2
+    exit 1
+fi
+
+# Check if netcat is available
+if ! command -v nc &> /dev/null; then
+    echo "netcat (nc) is not installed. Installing..."
+    apt-get update && apt-get install -y netcat-openbsd
+fi
+
+echo "Listening on localhost port 98..."
+echo "Press Ctrl+C to stop"
+
+# Listen on port 98 and display received data
+# -l: listen mode
+# -k: keep listening after client disconnects
+# -p 98: port 98
+# -s 127.0.0.2: bind to localhost (127.0.0.2 as per previous configuration)
+nc -l -k -p 98 -s 127.0.0.1
