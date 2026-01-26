@@ -16,4 +16,4 @@ echo "Active UNIX domain sockets (only servers)"
 echo "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path"
 
 # Show UNIX domain listening sockets
-ss -xlpn | grep LISTEN | awk '{print $0}'
+#ss -xlpn | grep LISTEN | awk '{print $0}'
