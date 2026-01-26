@@ -12,7 +12,6 @@ netstat -lp | tail -n +3 | grep -v "127.0.0.1\|::1" | grep -E "(LISTEN|^udp)"
 
 
 echo ""
-echo "Active UNIX domain sockets (only servers)"
 
 # Show UNIX domain listening sockets
 netstat -xlpn | head -n2
