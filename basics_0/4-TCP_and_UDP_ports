@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Bash script to display listening ports
+
 # Check if script is run with sudo/root privileges
 if [ "$EUID" -ne 0 ]; then
     echo "Please run as root or with sudo"
